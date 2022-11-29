@@ -3,7 +3,7 @@
 # Introduction
 
 
-LoaChat is a messaging application. It allows you to send text and photo messages to each other.
+LoaChat is a messaging application. It allows you to send text and photo messages to each other. LoaChat is built using the Firabese infrastructure. MVVM architecture pattern is used as architecture.
 
 
 ## Libraries
@@ -28,7 +28,9 @@ open ChatApp.xcodeproj
 
 ## Images
 
+<!--
 <img src="https://github.com/OrionInnovationTRTech/bestCapturedLivePhoto/blob/main/ScreenShots/IMG_5104.PN" width="276" height="597" />  <img src="https://github.com/OrionInnovationTRTech/bestCapturedLivePhoto/blob/main/ScreenShots/IMG_5105.PN" width="276" height="597" />
+-->
 
 
 
