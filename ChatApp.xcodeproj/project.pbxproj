@@ -196,7 +196,6 @@
 		5F87986F28F57FE90037379C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5FB3A499292D6ED0002B4B42 /* 100757-not-found.json */,
 				5F87987B28F6B2E80037379C /* Authentication */,
 				5F87987328F581C00037379C /* CAConversationsViewController.swift */,
 				5FE44ACB2906A5FC005588B2 /* CANewMessageController.swift */,
@@ -244,7 +243,6 @@
 			children = (
 				5F87987C28F6B3050037379C /* CALoginViewController.swift */,
 				5F87988428F6E26E0037379C /* CARegistrationViewController.swift */,
-				5F87987E28F6B9B10037379C /* 116791-chat.json */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -256,6 +254,15 @@
 				5F540CCE2913EBCE00D05645 /* CASetProfileInfoViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		5FA5AFC629376B78009CAB38 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5FB3A499292D6ED0002B4B42 /* 100757-not-found.json */,
+				5F87987E28F6B9B10037379C /* 116791-chat.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		5FE44AD72909B176005588B2 /* ConversationScreen */ = {
@@ -302,6 +309,7 @@
 				5FFB36F628EE201C00F7CE92 /* AppDelegate.swift */,
 				5FFB36F828EE201C00F7CE92 /* SceneDelegate.swift */,
 				5FFB36FA28EE201C00F7CE92 /* ViewController.swift */,
+				5FA5AFC629376B78009CAB38 /* Resources */,
 				5FFB36FC28EE201C00F7CE92 /* Main.storyboard */,
 				5FFB36FF28EE201F00F7CE92 /* Assets.xcassets */,
 				5FFB370128EE201F00F7CE92 /* LaunchScreen.storyboard */,

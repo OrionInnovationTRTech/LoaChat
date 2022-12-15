@@ -72,7 +72,6 @@ final class CAConversationsViewController: UIViewController {
                 self.conversationsDictionary[message.chatPartnerId] = conversation
             }
             
-            print("aha123")
             
             self.conversations = Array(self.conversationsDictionary.values)
             

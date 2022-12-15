@@ -54,7 +54,6 @@ struct Service {
                 if change.type == .added {
                     let dictionary = change.document.data()
                     messages.append(Message(dictionary: dictionary))
-                    print("Dedeman")
                     complition(messages)
                 }
             })

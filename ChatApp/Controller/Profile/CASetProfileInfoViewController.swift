@@ -55,10 +55,6 @@ class CASetProfileInfoViewController: UIViewController {
         
     }()
     
-    
-    
-   
-    
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.setDimensions(width: 150, height: 150)

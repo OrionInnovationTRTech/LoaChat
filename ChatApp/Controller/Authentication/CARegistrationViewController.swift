@@ -43,8 +43,6 @@ class CARegistrationViewController: UIViewController {
     
     private var animationView: AnimationView?
     
-    
-    
     private let registerLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
