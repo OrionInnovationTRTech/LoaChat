@@ -22,6 +22,13 @@ class CANewMessageController: UITableViewController {
     weak var delegate: NewMessageControllerDelegate?
     
     private var users = [User]()
+    private var filteresUsers = [User]()
+    
+    private let searchController = UISearchController(searchResultsController: nil)
+    
+    private var inSearchMode: Bool {
+        return searchController.isActive && !searchController.searchBar.text!.isEmpty
+    }
     
     
     //MARK: - Lifecycle
@@ -32,6 +39,7 @@ class CANewMessageController: UITableViewController {
         // Do any additional setup after loading the view.
         
         configureUI()
+        setupSearchController()
         fetchUsers()
     }
     
@@ -71,14 +79,13 @@ class CANewMessageController: UITableViewController {
         
     }
     
-<<<<<<< Updated upstream
-=======
     func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.searchBar.showsCancelButton = false
         navigationItem.searchController = searchController
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "Kullanıcı arayın..."
         searchController.searchBar.placeholder = NSLocalizedString("Kullanıcı arayın...", comment: "")
         definesPresentationContext = false
         
@@ -88,7 +95,6 @@ class CANewMessageController: UITableViewController {
         }
     }
     
->>>>>>> Stashed changes
     
     
     
@@ -96,14 +102,14 @@ class CANewMessageController: UITableViewController {
 
 extension CANewMessageController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return inSearchMode ? filteresUsers.count : users.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifer, for: indexPath) as! CAUserCell
         
-        cell.user = users[indexPath.row]
+        cell.user = inSearchMode ? filteresUsers[indexPath.row] : users[indexPath.row]
         
         
         return cell
@@ -111,9 +117,26 @@ extension CANewMessageController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = inSearchMode ? filteresUsers[indexPath.row] : users[indexPath.row]
         
-        delegate?.controller(self, wantsToStartChatWith: users[indexPath.row])
+        delegate?.controller(self, wantsToStartChatWith: user)
 
+    }
+    
+    
+}
+
+extension CANewMessageController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        guard let searchText = searchController.searchBar.text?.lowercased() else {return}
+        
+        filteresUsers = users.filter({ user in
+            return user.username.contains(searchText) || user.fullname.contains(searchText)
+        })
+        
+        self.tableView.reloadData()
+         
     }
     
     
