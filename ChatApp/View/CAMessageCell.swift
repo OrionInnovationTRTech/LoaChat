@@ -54,6 +54,14 @@ class CAMessageCell: UICollectionViewCell {
         return tv
     }()
     
+    private let timeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.textColor = .label
+        label.text = "12.00"
+        return label
+    }()
+    
      let bubbleContainer: UIView = {
         let view = UIView()
         view.backgroundColor = .systemPurple
@@ -94,7 +102,7 @@ class CAMessageCell: UICollectionViewCell {
                         right: bubbleContainer.rightAnchor,
                         paddingTop: 4,
                         paddingLeft: 12,
-                        paddingBottom: 4,
+                        paddingBottom: 14,
                         paddingRight: 12)
         
         bubbleContainer.addSubview(messageImageView)
@@ -102,11 +110,14 @@ class CAMessageCell: UICollectionViewCell {
                                 left: bubbleContainer.leftAnchor,
                                 bottom: bubbleContainer.bottomAnchor,
                                 right: bubbleContainer.rightAnchor,
-                                paddingTop: 0,
+                                paddingTop: 15,
                                 paddingLeft: 0,
-                                paddingBottom: 0,
+                                paddingBottom: 15,
                                 paddingRight: 0)
         //messageImageView.setDimensions(height: 200, width: 200)
+        
+        bubbleContainer.addSubview(timeLabel)
+        timeLabel.anchor(bottom: bubbleContainer.bottomAnchor, right: bubbleContainer.rightAnchor, paddingBottom: 5, paddingRight: 10)
     }
     
     required init?(coder: NSCoder) {
@@ -127,9 +138,12 @@ class CAMessageCell: UICollectionViewCell {
         guard let message = message else { return }
         let viewModel = CAMessageViewModel(message: message)
         
+        print("Message time: \(message.timeStamp.dateValue())")
+        
         bubbleContainer.backgroundColor = viewModel.messageBackgroundColor
         textView.textColor = viewModel.messageTextColor
         textView.text = message.text
+        timeLabel.text = viewModel.timeStamp
                 
         bubbleRightAnchor.isActive = viewModel.rightAnchorActive
         bubbleLeftAnchor.isActive = viewModel.leftAnchorActive

@@ -93,7 +93,9 @@ class CAConversationCell: UITableViewCell {
         
         let viewModel = CAConversationViewModel(conversation: conversation)
 
-        messageTextLabel.text = message.text
+        messageTextLabel.text = viewModel.messageText
+        
+        
         usernameLabel.text = user.username
         timeLabel.text = viewModel.timeStamp
         profileImageView.sd_setImage(with: viewModel.profileImageUrl)

@@ -38,6 +38,15 @@ struct CAMessageViewModel {
         guard let user = message.user else { return nil }
         return URL(string: message.imageUrl)
     }
+    
+    var timeStamp: String {
+        let date = message.timeStamp.dateValue()
+        print("Message2: \(date)")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.string(from: date)
+    }
+    
     init(message: Message) {
         self.message = message
     }

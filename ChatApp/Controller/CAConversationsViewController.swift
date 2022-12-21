@@ -122,7 +122,9 @@ final class CAConversationsViewController: UIViewController {
             if Auth.auth().currentUser?.uid == nil {
                 presentLoginScreen()
                 print("DEBUG: User is not logged in ")
+                
             }
+        print("IDDDD: \(Auth.auth().currentUser?.uid)")
         }
         
         
@@ -210,6 +212,8 @@ extension CAConversationsViewController: UITableViewDelegate, UITableViewDataSou
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifer, for: indexPath) as! CAConversationCell
         
         cell.conversation = conversations[indexPath.row]
+        
+        print("Abee: \(conversations[indexPath.row].message.timeStamp.dateValue())")
         
         return cell
         

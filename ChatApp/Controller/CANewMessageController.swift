@@ -71,6 +71,24 @@ class CANewMessageController: UITableViewController {
         
     }
     
+<<<<<<< Updated upstream
+=======
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.showsCancelButton = false
+        navigationItem.searchController = searchController
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = NSLocalizedString("Kullanıcı arayın...", comment: "")
+        definesPresentationContext = false
+        
+        if let textfield = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textfield.textColor = .chatGunmetal
+            textfield.backgroundColor = .white
+        }
+    }
+    
+>>>>>>> Stashed changes
     
     
     

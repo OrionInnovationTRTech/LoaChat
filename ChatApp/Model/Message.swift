@@ -26,7 +26,7 @@ struct Message {
         self.text = dictionary["text"] as? String ?? ""
         self.toId = dictionary["toId"] as? String ?? ""
         self.fromId = dictionary["fromId"] as? String ?? ""
-        self.timeStamp = dictionary["timeStamp"] as? Timestamp ?? Timestamp(date: Date())
+        self.timeStamp = dictionary["timestamp"] as? Timestamp ?? Timestamp(date: Date())
         self.imageUrl = (dictionary["imageUrl"] as? String ?? "")
 
         self.isFromCurrentUser = fromId == Auth.auth().currentUser?.uid

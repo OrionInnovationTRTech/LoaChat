@@ -40,7 +40,7 @@ class CALoginViewController: UIViewController {
     }()
     
     private let emailTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Mailiniz")
+        let tf = Utilities().textField(withPlaceholder: NSLocalizedString("Mailiniz", comment: ""))
         tf.keyboardType = .emailAddress
         return tf
     }()
@@ -52,7 +52,7 @@ class CALoginViewController: UIViewController {
     }()
     
     private let passwordTextField: UITextField = {
-        let tf = Utilities().textField(withPlaceholder: "Şifre")
+        let tf = Utilities().textField(withPlaceholder: NSLocalizedString("Şifre", comment: ""))
         tf.isSecureTextEntry = true
         return tf
     }()

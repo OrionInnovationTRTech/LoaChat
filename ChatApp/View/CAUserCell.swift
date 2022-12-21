@@ -49,8 +49,8 @@ class CAUserCell: UITableViewCell {
         
         addSubview(profileImageView)
         profileImageView.centerY(inView: self, leftAnchor: leftAnchor, paddingLeft: 12)
-        profileImageView.setDimensions(width: 56, height: 56)
-        profileImageView.layer.cornerRadius = 56 / 2
+        profileImageView.setDimensions(width: 60, height: 60)
+        profileImageView.layer.cornerRadius = 60 / 2
         
         let stack = UIStackView(arrangedSubviews: [usernameLabel, fullnameLabel])
         stack.axis = .vertical
