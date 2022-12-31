@@ -18,11 +18,12 @@ final class CAProfileInfoViewCell: UITableViewCell {
         return view
     }()
     
-    private let profileImageView : UIImageView = {
+    private lazy var profileImageView : UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = .white
         imageView.layer.masksToBounds = true
         imageView.clipsToBounds = true
+        imageView.setDimensions(width: 50, height: 50)
         imageView.layer.cornerRadius = 25
         return imageView
     }()

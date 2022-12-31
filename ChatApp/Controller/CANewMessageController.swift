@@ -64,7 +64,6 @@ class CANewMessageController: UITableViewController {
     }
     
     
-    
     //MARK: - Helper
     
     func configureUI() {

@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import Lottie
-import Firebase
 
 protocol AuthenticationDelegate: class {
     func authenticationComplete()
@@ -22,7 +21,16 @@ class CALoginViewController: UIViewController {
     
     private var viewModel = CALoginViewModel()
     
-    private var animationView: AnimationView?
+    private lazy var animationView: AnimationView = {
+        let av = AnimationView()
+        av.frame = view.bounds
+        av.backgroundColor = .clear
+        av.contentMode = .scaleAspectFit
+        av.loopMode = .loop
+        av.animationSpeed = 0.5
+        
+        return av
+    }()
     
     private lazy var loginLabel: UILabel = {
         let label = UILabel()
@@ -72,6 +80,22 @@ class CALoginViewController: UIViewController {
         return button
     }()
     
+    private lazy var forgotPassLabel: UILabel = {
+        let label = UILabel()
+        label.text = NSLocalizedString("Şifreni mi unuttun?", comment: "")
+        label.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        label.textColor = .label
+        label.numberOfLines = 2
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(forgotPasswordLabelTapped))
+                label.isUserInteractionEnabled = true
+                label.addGestureRecognizer(tap)
+        
+        return label
+    }()
+    
+    
+    
     private let dontHaveAccountButton: UIButton = {
         let button = Utilities().attributedButton(NSLocalizedString("Hesabın yok mu?", comment: ""), NSLocalizedString(" Kayıt Ol", comment: ""))
         button.addTarget(self, action: #selector(loginButtonAction), for: .touchUpInside)
@@ -101,20 +125,24 @@ class CALoginViewController: UIViewController {
                
         showLoader(true, withText: NSLocalizedString("Giriş yapılıyor...", comment: ""))
                
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+        AuthService.logUserIn(withEmail: email, password: password) { result, error in
+            
             if let error = error {
-                self.showError(error.localizedDescription)
                 
                 self.showLoader(false)
-                print("DEBUG: Error is logIn \(error.localizedDescription)")
+                self.showMessage(withTitle: "Error", message: error.localizedDescription)
+                
                 return
-            }
+                
+                }
             
             self.showLoader(false)
             self.delegate?.authenticationComplete()
             
-        }
+            }
     }
+    
+    
     
     
     @objc func loginButtonAction() {
@@ -146,6 +174,14 @@ class CALoginViewController: UIViewController {
         }
     }
     
+    @objc func forgotPasswordLabelTapped() {
+        
+        print("xxx")
+        let controller = CAForgotPasswordViewController()
+        controller.delegate = self
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     func configureUI() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.isHidden = true
@@ -154,24 +190,15 @@ class CALoginViewController: UIViewController {
         
         animationView = .init(name: "116791-chat")
           
-        animationView!.frame = view.bounds
-        animationView?.backgroundColor = .clear
+        view.addSubview(animationView)
+        animationView.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: 0, width: 280, height: 280)
           
-        animationView!.contentMode = .scaleAspectFit
-          
-        animationView!.loopMode = .loop
-          
-        animationView!.animationSpeed = 0.5
-          
-        view.addSubview(animationView!)
-        animationView?.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingTop: 0, width: 280, height: 280)
-          
-        animationView!.play()
+        animationView.play()
         
         //LOGIN LABEL
         
         view.addSubview(loginLabel)
-        loginLabel.centerX(inView: view, topAnchor: animationView?.bottomAnchor, paddingTop: 5)
+        loginLabel.centerX(inView: view, topAnchor: animationView.bottomAnchor, paddingTop: 5)
         
         //TEXTFIELDS
         
@@ -186,6 +213,9 @@ class CALoginViewController: UIViewController {
         view.addSubview(registerButton)
         registerButton.anchor(top: tfStack.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 40,  paddingRight: 40, height: 50)
         
+        view.addSubview(forgotPassLabel)
+        forgotPassLabel.centerX(inView: view, topAnchor: registerButton.bottomAnchor, paddingTop: 15)
+        
         //DON'T HAVE
         
         view.addSubview(dontHaveAccountButton)
@@ -196,6 +226,15 @@ class CALoginViewController: UIViewController {
     }
     
     
+    
+    
+}
+
+extension CALoginViewController: ResetPasswordControllerDelegate {
+    func controllerDidSendResetPasswordLink(_ controller: CAForgotPasswordViewController) {
+        navigationController?.popViewController(animated: true)
+        self.showMessage(withTitle: "Başarılı", message: "Email adresinize şifre yenileme linkini gönderdik")
+    }
     
     
 }

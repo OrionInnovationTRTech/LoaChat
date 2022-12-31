@@ -21,8 +21,9 @@ class CAChatViewController: UICollectionViewController {
     var startingFrame: CGRect?
     var blackBackgroundView: UIView?
     var startingImageView: UIImageView?
+    var userIsOnline: String?
         
-    private let user: User
+    private var user: User
     private var messages = [Message]()
     var fromCurrentUser = false
 
@@ -49,6 +50,7 @@ class CAChatViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        fetchUser()
         fetchMessages()
     }
     
@@ -86,8 +88,23 @@ class CAChatViewController: UICollectionViewController {
         collectionView.backgroundColor = .systemBackground
         configureNavigationBar(withTitle: user.username, prefLargeTitles: false)
         
+        
+        
+        
+        
         collectionView.register(CAMessageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.alwaysBounceVertical = true
+    }
+    
+    func fetchUser() {
+        showLoader(true)
+        Service.fetchUserOnlineStatus(withUID: user.uid) { user in
+            if user.isOnline == true {
+                self.navigationItem.titleView = Utilities().setTitle(title: user.username, subtitle: "Çevrimiçi")
+            } else {
+                self.navigationItem.titleView = Utilities().setTitle(title: user.username, subtitle: "Çevrimdışı")
+            }
+        }
     }
 }
 

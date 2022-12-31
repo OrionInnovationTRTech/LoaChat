@@ -6,6 +6,16 @@
 //
 
 import Foundation
+import UIKit
+
+protocol FormViewModel {
+    func updateForm()
+}
+
+protocol AuthenticationViewModel {
+    var formIsValid: Bool { get }
+    var buttonBackgroundColor: UIColor {get}
+}
 
 struct CARegistrationViewModel: AuthenticationProtocol {
 
@@ -22,5 +32,16 @@ struct CARegistrationViewModel: AuthenticationProtocol {
             && password?.isEmpty == false
     }
     
+    
+}
+
+struct ResetPasswordViewModel: AuthenticationViewModel {
+    var email: String?
+    
+    var formIsValid: Bool {return email?.isEmpty == false}
+    
+    var buttonBackgroundColor: UIColor {
+         formIsValid ? .cyan : .cyan.withAlphaComponent(0.5)
+    }
     
 }

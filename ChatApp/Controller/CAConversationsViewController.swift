@@ -19,8 +19,20 @@ final class CAConversationsViewController: UIViewController {
     private let tableView = UITableView()
     private var conversations = [Conversation]()
     private var conversationsDictionary = [String: Conversation]()
-    private var animationView: AnimationView?
     let notificationCenter = NotificationCenter.default
+    
+    private lazy var animationView: AnimationView = {
+        let av = AnimationView()
+        
+        av.frame = view.bounds
+        av.backgroundColor = .clear
+        av.loopMode = .playOnce
+        av.isHidden = true
+        av.animationSpeed = 1.0
+        
+        
+        return av
+    }()
 
     
     
@@ -50,7 +62,7 @@ final class CAConversationsViewController: UIViewController {
         print("DEBUG: Conver: \(conversations.isEmpty)")
         
         if conversations.isEmpty == false {
-            self.animationView?.isHidden = true
+            self.animationView.isHidden = true
         }
         
         notificationCenter.removeObserver(self)
@@ -70,6 +82,7 @@ final class CAConversationsViewController: UIViewController {
             conversations.forEach { conversation in
                 let message = conversation.message
                 self.conversationsDictionary[message.chatPartnerId] = conversation
+                
             }
             
             print("aha123")
@@ -124,7 +137,6 @@ final class CAConversationsViewController: UIViewController {
                 print("DEBUG: User is not logged in ")
                 
             }
-        print("IDDDD: \(Auth.auth().currentUser?.uid)")
         }
         
         
@@ -156,22 +168,12 @@ final class CAConversationsViewController: UIViewController {
         //Animation View
         
         animationView = .init(name: "100757-not-found")
+        
+        view.addSubview(animationView)
+        animationView.setDimensions(width: 180, height: 180)
+        animationView.center(inView: view)
           
-        animationView!.frame = view.bounds
-        animationView?.backgroundColor = .clear
-          
-        animationView!.contentMode = .scaleAspectFit
-          
-        animationView!.loopMode = .playOnce
-        animationView?.isHidden = true
-          
-        animationView!.animationSpeed = 1.0
-          
-        view.addSubview(animationView!)
-        animationView?.center(inView: view)
-        animationView?.setDimensions(width: 180, height: 180)
-          
-        animationView!.play()
+        animationView.play()
         
     }
     
@@ -189,20 +191,16 @@ final class CAConversationsViewController: UIViewController {
     
     
     
-    
-    
-    
-    
 }
 
 extension CAConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if conversations.count == 0 {
-            print("ahaha2")
-            animationView?.isHidden = false
+            
+            animationView.isHidden = false
         } else {
-            animationView?.isHidden = true
+            animationView.isHidden = true
         }
         return conversations.count
     }
@@ -213,7 +211,7 @@ extension CAConversationsViewController: UITableViewDelegate, UITableViewDataSou
         
         cell.conversation = conversations[indexPath.row]
         
-        print("Abee: \(conversations[indexPath.row].message.timeStamp.dateValue())")
+        
         
         return cell
         

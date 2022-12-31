@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
+typealias SendPasswordResetCallback = (Error?) -> Void
+
 struct RegistrationCredentials {
     let email: String
     let password: String
@@ -17,10 +19,16 @@ struct RegistrationCredentials {
     let username: String
     let profileImage: UIImage
     let fcmToken: String
+    let isOnline: Bool
 }
 
 struct AuthService {
     static let shared = AuthService()
+    
+    static func logUserIn(withEmail email: String, password: String, completion: @escaping(AuthDataResult?, Error?) -> Void) {
+            
+            Auth.auth().signIn(withEmail: email, password: password, completion: completion)
+        }
    
     
     func createUser(credentials: RegistrationCredentials, completion: ((Error?) -> Void)?) {
@@ -53,12 +61,17 @@ struct AuthService {
                                 "profileImageUrl": profileImageUrl,
                                 "uid": uid,
                                 "username": credentials.username,
-                                "fcmToken": credentials.fcmToken] as [String: Any]
+                                "fcmToken": credentials.fcmToken,
+                                "isOnline": credentials.isOnline] as [String: Any]
                     
                     Firestore.firestore().collection("users").document(uid).setData(data, completion: completion)
                 }
             }
         }
+    }
+    
+    static func resetPassword(withEmail email: String, completion: SendPasswordResetCallback?) {
+        Auth.auth().sendPasswordReset(withEmail: email, completion: completion)
     }
     
     func updateProfileImage(image: UIImage, completion: @escaping(URL?) -> Void) {

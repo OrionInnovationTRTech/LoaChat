@@ -20,3 +20,5 @@ struct CALoginViewModel: AuthenticationProtocol {
             && password?.isEmpty == false
     }
 }
+
+

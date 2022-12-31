@@ -14,6 +14,7 @@ struct User {
     let fullname: String
     let email: String
     let fcmToken: String
+    let isOnline: Bool
     
     init(dictionary: [String: Any]) {
         self.uid = dictionary["uid"] as? String ?? ""
@@ -22,5 +23,6 @@ struct User {
         self.fullname = dictionary["fullname"] as? String ?? ""
         self.email = dictionary["email"] as? String ?? ""
         self.fcmToken = dictionary["fcmToken"] as? String ?? ""
+        self.isOnline = dictionary["isOnline"] as? Bool ?? false
     }
 }

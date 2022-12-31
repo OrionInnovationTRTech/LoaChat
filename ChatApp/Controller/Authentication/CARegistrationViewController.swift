@@ -168,7 +168,8 @@ class CARegistrationViewController: UIViewController {
                                                  fullname: fullname,
                                                  username: username,
                                                   profileImage: profileImage,
-                                                  fcmToken: fcmToken)
+                                                  fcmToken: fcmToken,
+                                                  isOnline: true)
         
         showLoader(true, withText: NSLocalizedString("Kayıt Olunuyor...", comment: ""))
             
@@ -252,7 +253,7 @@ class CARegistrationViewController: UIViewController {
         
         //TEXTFIELDS
         
-        let tfStack = UIStackView(arrangedSubviews: [  emailContainerView, fullNameContainerView, userNameContainerView, passwordContainerView])
+        let tfStack = UIStackView(arrangedSubviews: [ emailContainerView, fullNameContainerView, userNameContainerView, passwordContainerView])
         tfStack.axis = .vertical
         tfStack.spacing  = 15
         tfStack.distribution = .fillEqually

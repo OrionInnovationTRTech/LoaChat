@@ -27,6 +27,24 @@ struct Service {
         }
     }
     
+    static func fetchUserOnlineStatus(withUID uid: String, completion: @escaping(User) -> Void) {
+        
+        COLLECTION_USERS.document(uid)
+            .addSnapshotListener { documentSnapshot, error in
+              guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+              }
+              guard let data = document.data() else {
+                print("Document data was empty.")
+                return
+              }
+                print("Current data3: \(data)")
+                let user = User(dictionary: data)
+                completion(user)
+            }
+    }
+    
     static func uploadMessage(_ message: String, to user: User, completion: ((Error?) -> Void)?) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         let data = ["text": message,

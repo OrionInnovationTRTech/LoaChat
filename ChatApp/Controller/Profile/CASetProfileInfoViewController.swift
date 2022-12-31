@@ -66,6 +66,7 @@ class CASetProfileInfoViewController: UIViewController {
         iv.tintColor = .lightGray
         iv.layer.cornerRadius = 75
         iv.layer.masksToBounds = true
+        iv.clipsToBounds = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleAddProfilePhoto))
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(tapGestureRecognizer)
