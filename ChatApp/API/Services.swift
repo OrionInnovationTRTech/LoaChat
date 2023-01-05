@@ -63,6 +63,18 @@ struct Service {
             }
     }
     
+    static func sendOnlineStatus(_ isOnline: Bool, completion: ((Error?) -> Void)?) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        let data = ["isOnline": isOnline] as [String : Any]
+        
+        COLLECTION_USERS.document(currentUid).updateData(data) { err in
+            if let error = err {
+                print("DEBUG: Error is scene: \(error.localizedDescription) ")
+            }
+            
+        }
+    }
+    
     static func fetchMessage(forUser user: User, complition: @escaping([Message]) -> Void) {
         var  messages = [Message]()
         guard let currentUid = Auth.auth().currentUser?.uid else { return }

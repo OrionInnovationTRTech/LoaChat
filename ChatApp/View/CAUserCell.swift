@@ -20,7 +20,7 @@ class CAUserCell: UITableViewCell {
     
     private let profileImageView: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .cyan
+        iv.backgroundColor = .systemBackground
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         

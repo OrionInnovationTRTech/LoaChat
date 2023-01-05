@@ -25,7 +25,7 @@ class CAForgotPasswordViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         label.numberOfLines = 3
         label.textAlignment = .center
-        label.text = "Şifremi Unuttum"
+        label.text = NSLocalizedString("Şifremi Unuttum", comment: "")
         
         
         return label
@@ -37,7 +37,7 @@ class CAForgotPasswordViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.numberOfLines = .max
         label.textAlignment = .center
-        label.text = "Şifrenizi yenilemek için lütfen e-posta adresinizi giriniz."
+        label.text = NSLocalizedString("Şifrenizi yenilemek için lütfen e-posta adresinizi giriniz.", comment: "")
         
         
         return label
@@ -56,7 +56,7 @@ class CAForgotPasswordViewController: UIViewController {
         return tf
     }()
     
-    private lazy var registerButton: UIButton = {
+    private lazy var sendButton: UIButton = {
         let button = UIButton()
         button.setTitle(NSLocalizedString("Gönder", comment: ""), for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -164,8 +164,8 @@ class CAForgotPasswordViewController: UIViewController {
         view.addSubview(emailContainerView)
         emailContainerView.anchor(top: infoTextLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 30, paddingRight: 30)
         
-        view.addSubview(registerButton)
-        registerButton.anchor(top: emailContainerView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 40,  paddingRight: 40, height: 50)
+        view.addSubview(sendButton)
+        sendButton.anchor(top: emailContainerView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 40,  paddingRight: 40, height: 50)
         
         
     }
@@ -175,8 +175,8 @@ class CAForgotPasswordViewController: UIViewController {
 
 extension CAForgotPasswordViewController: FormViewModel {
     func updateForm() {
-        registerButton.backgroundColor = viewModel.buttonBackgroundColor
-        registerButton.isEnabled = viewModel.formIsValid
+        sendButton.backgroundColor = viewModel.buttonBackgroundColor
+        sendButton.isEnabled = viewModel.formIsValid
     }
     
     

@@ -97,14 +97,15 @@ final class CAConversationsViewController: UIViewController {
         self.showLoader(false)
     }
     
-    private func logout() {
-            do {
-                try Auth.auth().signOut()
-                presentLoginScreen()
-            } catch let error {
-                print("DEBUG: Error signing out...", error.localizedDescription)
+    func logOut() {
+        AuthService.logOut { err in
+            if let error = err {
+                print("Error is: \(error.localizedDescription)")
+                return
             }
+            self.presentLoginScreen()
         }
+    }
     
     
     //MARK: - Selector
@@ -258,7 +259,7 @@ extension CAConversationsViewController: NewMessageControllerDelegate {
 
 extension CAConversationsViewController: ProfileFooterViewDelegate {
     func handleLogout() {
-        self.logout()
+        self.logOut()
     }
     
 }

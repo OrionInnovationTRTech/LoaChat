@@ -74,6 +74,16 @@ struct AuthService {
         Auth.auth().sendPasswordReset(withEmail: email, completion: completion)
     }
     
+    static func logOut(completion: ((Error?) -> Void)?) {
+        do {
+            try Auth.auth().signOut()
+            
+        } catch let error {
+            print("DEBUG: Error signing out...", error.localizedDescription)
+        }
+    }
+    
+    
     func updateProfileImage(image: UIImage, completion: @escaping(URL?) -> Void) {
            guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
            guard let uid = Auth.auth().currentUser?.uid else { return }

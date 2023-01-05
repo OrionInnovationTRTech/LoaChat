@@ -29,40 +29,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         
-        print("Geldim1")
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        
-        
-        
-        let values = ["isOnline": true] as [String : Any]
-        
-
-        COLLECTION_USERS.document(uid).updateData(values) { err in
+        Service.sendOnlineStatus(true) { err in
             if let error = err {
-                print("DEBUG: Error is scene: \(error.localizedDescription) ")
+                print("Error: \(error.localizedDescription)")
             }
-            
         }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
         
-        print("Geldim2")
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        
-        let values = ["isOnline": false] as [String : Any]
-        
-
-        COLLECTION_USERS.document(uid).updateData(values) { err in
+        Service.sendOnlineStatus(false) { err in
             if let error = err {
-                print("DEBUG: Error is scene: \(error.localizedDescription) ")
+                print("Error: \(error.localizedDescription)")
             }
-            
         }
     }
 

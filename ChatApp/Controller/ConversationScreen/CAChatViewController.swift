@@ -50,7 +50,7 @@ class CAChatViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        fetchUser()
+        fetchUserOnlineStatus()
         fetchMessages()
     }
     
@@ -89,14 +89,11 @@ class CAChatViewController: UICollectionViewController {
         configureNavigationBar(withTitle: user.username, prefLargeTitles: false)
         
         
-        
-        
-        
         collectionView.register(CAMessageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.alwaysBounceVertical = true
     }
     
-    func fetchUser() {
+    func fetchUserOnlineStatus() {
         showLoader(true)
         Service.fetchUserOnlineStatus(withUID: user.uid) { user in
             if user.isOnline == true {
